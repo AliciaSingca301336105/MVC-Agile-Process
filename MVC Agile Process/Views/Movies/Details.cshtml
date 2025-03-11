@@ -1,0 +1,28 @@
+﻿@model MVC_Agile_Process.Models.Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<h1>Movie Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Title</dt>
+        <dd>@Model.Title</dd>
+        <dt>Genre</dt>
+        <dd>@Model.Genre</dd>
+        <dt>Release Date</dt>
+        <dd>@Model.ReleaseDate.ToShortDateString()</dd>
+        <dt>Price</dt>
+        <dd>@Model.Price</dd>
+    </dl>
+</div>
+
+<p>
+    <a href="@Url.Action("Edit", new { id = Model.Id })">Edit</a> |
+    <a href="@Url.Action("Delete", new { id = Model.Id })">Delete</a> |
+    <a href="@Url.Action("Index")">Back to List</a>
+</p>

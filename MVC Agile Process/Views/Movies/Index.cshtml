@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MVC_Agile_Process.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies List";
+}
+
+<h1>Movies List</h1>
+
+<p>
+    <a href="@Url.Action("Create")">Create New Movie</a>
+</p>
+
+<form method="get" action="@Url.Action("Index")">
+    <!-- Use ViewData to get the searchString -->
+    <input type="text" name="searchString" placeholder="Search movies by title" value="@ViewData["SearchString"]" />
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Release Date</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.Genre</td>
+                <td>@movie.ReleaseDate.ToShortDateString()</td>
+                <td>@movie.Price</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = movie.Id })">Details</a> |
+                    <a href="@Url.Action("Edit", new { id = movie.Id })">Edit</a> |
+                    <a href="@Url.Action("Delete", new { id = movie.Id })">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
