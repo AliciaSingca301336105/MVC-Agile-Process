@@ -9,29 +9,35 @@ trigger:
       - main
 
 pool:
-  name: AgentLab4
+  name: AgentLab4  # Your self-hosted agent name
 
 variables:
-  projectPath: 'C:\Users\alice\Desktop\W2025\COMP 367 - 002_DevOps Implementation\Assignments\Assignment 3\MvcMovie'
+  solutionPath: '$(Build.SourcesDirectory)/MvcMovie/MvcMovie/MvcMovie.sln'  # Full path to the solution file
 
 steps:
+  # Clone from GitHub
+  - checkout: self  # Ensures latest code is pulled from the GitHub repo
+
+  # Install .NET SDK
   - task: UseDotNet@2
     inputs:
       packageType: sdk
       version: '7.x'
       installationPath: $(Agent.ToolsDirectory)/dotnet
 
+  # Restore, Build, and Test
   - script: |
-      dotnet restore
-      dotnet build --configuration Release
-      dotnet test
-    displayName: 'Build and Test'
-    workingDirectory: $(projectPath)
+      dotnet restore "$(solutionPath)"
+      dotnet build "$(solutionPath)" --configuration Release
+      dotnet test "$(solutionPath)"
+    displayName: 'Restore, Build, and Test'
 
+  # Publish Build Artifacts
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'drop'
+
 
 
 
