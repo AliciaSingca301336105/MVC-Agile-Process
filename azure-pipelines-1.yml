@@ -13,8 +13,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  solution: '*/.sln'
-  projects: '*/.csproj'
+  solution: '**/*.sln'
+  projects: '**/*.csproj'
 
 steps:
 - task: UseDotNet@2
