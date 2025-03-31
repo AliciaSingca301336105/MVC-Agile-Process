@@ -12,7 +12,7 @@ pool:
   name: AgentLab4  # Your self-hosted agent name
 
 variables:
-  solutionPath: '$(Build.SourcesDirectory)/MvcMovie/MvcMovie/MvcMovie.sln'  # Full path to the solution file
+  solutionPath: 'MvcMovie/MvcMovie.sln'  # Solution path relative to the repository root
 
 steps:
   # Clone from GitHub
@@ -27,9 +27,9 @@ steps:
 
   # Restore, Build, and Test
   - script: |
-      dotnet restore "$(solutionPath)"
-      dotnet build "$(solutionPath)" --configuration Release
-      dotnet test "$(solutionPath)"
+      dotnet restore "$(Build.SourcesDirectory)/$(solutionPath)"
+      dotnet build "$(Build.SourcesDirectory)/$(solutionPath)" --configuration Release
+      dotnet test "$(Build.SourcesDirectory)/$(solutionPath)"
     displayName: 'Restore, Build, and Test'
 
   # Publish Build Artifacts
@@ -37,6 +37,7 @@ steps:
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'drop'
+
 
 
 
