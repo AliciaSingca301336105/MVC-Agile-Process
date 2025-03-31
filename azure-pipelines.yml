@@ -11,6 +11,9 @@ trigger:
 pool:
   name: AgentLab4
 
+variables:
+  projectPath: 'C:\Users\alice\Desktop\W2025\COMP 367 - 002_DevOps Implementation\Assignments\Assignment 3\MvcMovie'
+
 steps:
   - task: UseDotNet@2
     inputs:
@@ -23,12 +26,12 @@ steps:
       dotnet build --configuration Release
       dotnet test
     displayName: 'Build and Test'
+    workingDirectory: $(projectPath)
 
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'drop'
-
 
 
 
